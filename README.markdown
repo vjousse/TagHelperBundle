@@ -11,7 +11,10 @@ Basically this code :
     [php]
     echo $view->tag->tag('div#test.toto', 'Foo');
 
-Will output : <div id="test" class="toto">Foo</div> 
+Will output : 
+
+    [html]
+    <div id="test" class="toto">Foo</div> 
 
 Requirements
 ------------
