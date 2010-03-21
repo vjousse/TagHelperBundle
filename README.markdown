@@ -13,7 +13,7 @@ Basically this code :
 
 Will output : 
 
-`<div>` id="test" class="toto"&gt;Foo&lt;/div&gt; 
+`<div id="test" class="toto">Foo</div>`
 
 Requirements
 ------------
@@ -25,13 +25,22 @@ Installation
 
 The bledding edge version of Symfony is slightly different from the sandbox one.
 
-  * First you will have to modify you config_dev.yml and delete the web.debug section. Replace it with
+
+  * If you're using the sandbox, go into your src/vendor directory and remove the existing symfony dir. Then
+  
+      $ git clone git://github.com/symfony/symfony.git
+
+  * You will have to modify you config_dev.yml and delete the web.debug section. Replace it with
 
         [yml]
         profiler.config:
           toolbar: true
+          
+  * Install the bundle in src/Bundle
+      $ cd src/Bundle
+      $ git clone git://github.com/vjousse/TagHelperBundle.git
       
-  * Then in your Application kernel (HelloKernel.php for the sandbox) your registerBundles method should be something like this:
+  * In your Application kernel (HelloKernel.php for the sandbox) your registerBundles method should be something like this:
   
         [php]    
         public function registerBundles()
@@ -78,7 +87,7 @@ You're done ! You can do something like this:
     [php]
     echo $view->tag->tag('div#test.toto', 'Foo');
     
-It will output : <div id="test" class="toto">Foo</div> 
+It will output : `<div id="test" class="toto">Foo</div>`
     
 Detailed documentation
 ----------------------
