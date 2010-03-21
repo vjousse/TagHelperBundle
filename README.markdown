@@ -13,8 +13,7 @@ Basically this code :
 
 Will output : 
 
-    [html]
-    <div id="test" class="toto">Foo</div> 
+    &lt;div id="test" class="toto"&gt;Foo&lt;/div&gt; 
 
 Requirements
 ------------
