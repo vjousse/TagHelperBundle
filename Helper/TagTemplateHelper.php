@@ -105,7 +105,7 @@ class TagTemplateHelper implements HelperInterface
     // SYMFONY STYLE - string opt
     elseif (is_string($opt) && $content)
     {
-      $opt = sfToolkit::stringToArray($opt);
+      $opt = StringToolkit::stringToArray($opt);
       if (isset($opt['class']))
       {
         $tagOpt['class'][] = explode(' ', $opt['class']);
