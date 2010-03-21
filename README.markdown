@@ -8,8 +8,8 @@ Just a simple Bundle which allow you to use the Diem tag helper in a Symfony 2 p
 
 Basically this code :
 
-  [php]
-  <?php echo $view->tag->tag('div#test.toto', 'Foo'); ?>
+    [php]
+    echo $view->tag->tag('div#test.toto', 'Foo');
 
 Will output : <div id="test" class="toto">Foo</div> 
 
@@ -21,3 +21,39 @@ You will need the latest version of Symfony 2 (not the sandbox PR1 one). You can
 Installation
 ------------
 
+The bledding edge version of Symfony is slightly different from the sandbox one.
+
+  * First you will have to modify you config_dev.yml and delete the web.debug section. Replace it with
+
+        [yml]
+        profiler.config:
+          toolbar: true
+      
+  * Then in your Application kernel (HelloKernel.php for the sandbox) your registerBundles method should be something like this:
+  
+    [php]
+      
+      public function registerBundles()
+      {
+
+        $bundles = array(
+          new Symfony\Foundation\Bundle\KernelBundle(),
+          new Symfony\Framework\WebBundle\Bundle(),
+
+          // enable third-party bundles
+          new Symfony\Framework\ZendBundle\Bundle(),
+          new Symfony\Framework\DoctrineBundle\Bundle(),
+          new Symfony\Framework\SwiftmailerBundle\Bundle(),
+
+          // register your bundles here
+          new Application\HelloBundle\Bundle(),
+          new Bundle\TagHelperBundle\Bundle(),
+        );
+
+        if ($this->isDebug())
+        {
+          $bundles[] = new Symfony\Framework\ProfilerBundle\Bundle();
+        }
+
+        return $bundles;
+      }
