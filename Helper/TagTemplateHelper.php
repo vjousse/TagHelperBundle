@@ -6,8 +6,6 @@ use Bundle\TagHelperBundle\Toolkit\StringToolkit;
 
 class TagTemplateHelper implements HelperInterface
 {
-
-
   protected $charset = 'UTF-8';
   protected $options;
 
@@ -32,7 +30,6 @@ class TagTemplateHelper implements HelperInterface
   public function getDefaultOptions()
   {
     return array(
-      'use_beaf'        => false,
       'empty_elements'  => array('br', 'hr', 'img', 'input')
     );
   }
@@ -129,17 +126,6 @@ class TagTemplateHelper implements HelperInterface
 
     $class = isset($tagOpt['class']) ? $tagOpt['class'] : array();
 
-    if ($this->options['use_beaf'] && (in_array('beafh', $class) || in_array('beafv', $class)))
-    {
-      $isBeaf = true;
-      $tagOpt['class'][] = 'clearfix';
-      $beafTag = in_array($tagName, array('span', 'a', 'p')) ? 'span' : 'div';
-    }
-    else
-    {
-      $isBeaf = false;
-    }
-
     if(isset($tagOpt['lang']))
     {
       if($tagOpt['lang'] === $this->context->getUser()->getCulture())
@@ -165,25 +151,11 @@ class TagTemplateHelper implements HelperInterface
     }
     elseif ($openAndClose)
     {
-      if ($isBeaf)
-      {
-        $tag = '<'.$tagName.$optHtml.'><'.$beafTag.' class="beafore"></'.$beafTag.'><'.$beafTag.' class="beafin">'.$content.'</'.$beafTag.'><'.$beafTag.' class="beafter"></'.$beafTag.'></'.$tagName.'>';
-      }
-      else
-      {
-        $tag = '<'.$tagName.$optHtml.'>'.$content.'</'.$tagName.'>';
-      }
+      $tag = '<'.$tagName.$optHtml.'>'.$content.'</'.$tagName.'>';
     }
     else
     {
-      if ($isBeaf)
-      {
-        $tag = '<'.$tagName.$optHtml.'><'.$beafTag.' class="beafore"></'.$beafTag.'><'.$beafTag.' class="beafin">';
-      }
-      else
-      {
-        $tag = '<'.$tagName.$optHtml.'>';
-      }
+      $tag = '<'.$tagName.$optHtml.'>';
     }
 
     return $tag;
