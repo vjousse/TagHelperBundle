@@ -59,7 +59,15 @@ class TagTemplateHelper implements HelperInterface
     return 'tag';
   }
 
-  public function tag($tagName, $opt = array(), $content = false, $openAndClose = true)
+  /**
+   * Creates an HTML tag
+   * @param string  $tagName      the tag name, or a CSS expression like div#an_id.a_class
+   * @param array   $attributes   an optional array of HTML attributes
+   * @param string  $content      the content of the tag, can be text or HTML
+   * @param boolean $openAndClose whether to close the tag or not
+   * @return string The HTML tag
+   */
+  public function tag($tagName, $attributes = array(), $content = false, $openAndClose = true)
   {
     if (!($tagName = trim($tagName)))
     {
@@ -84,39 +92,39 @@ class TagTemplateHelper implements HelperInterface
     StringToolkit::retrieveCssFromString($tagName, $tagOpt);
 
     // ARRAY STYLE - array opt
-    if (is_array($opt) && !empty($opt))
+    if (is_array($attributes) && !empty($attributes))
     {
-      if (isset($opt['json']))
+      if (isset($attributes['json']))
       {
-        $tagOpt['class'][] = json_encode($opt['json']);
-        unset($opt['json']);
+        $tagOpt['class'][] = json_encode($attributes['json']);
+        unset($attributes['json']);
       }
-      if (isset($opt['class']))
+      if (isset($attributes['class']))
       {
-        $tagOpt['class'][] = is_array($opt['class']) ? implode(' ', $opt['class']) : $opt['class'];
-        unset($opt['class']);
+        $tagOpt['class'][] = is_array($attributes['class']) ? implode(' ', $attributes['class']) : $attributes['class'];
+        unset($attributes['class']);
       }
 
-      $tagOpt = array_merge($tagOpt, $opt);
+      $tagOpt = array_merge($tagOpt, $attributes);
     }
     // SYMFONY STYLE - string opt
-    elseif (is_string($opt) && $content)
+    elseif (is_string($attributes) && $content)
     {
-      $opt = StringToolkit::stringToArray($opt);
-      if (isset($opt['class']))
+      $attributes = StringToolkit::stringToArray($attributes);
+      if (isset($attributes['class']))
       {
-        $tagOpt['class'][] = explode(' ', $opt['class']);
-        unset($opt['class']);
+        $tagOpt['class'][] = explode(' ', $attributes['class']);
+        unset($attributes['class']);
       }
 
-      $tagOpt = array_merge($tagOpt, $opt);
+      $tagOpt = array_merge($tagOpt, $attributes);
     }
 
     if (!$content)
     {
-      if (!is_array($opt))
+      if (!is_array($attributes))
       {
-        $content = $opt;
+        $content = $attributes;
       }
       else // No opt
       {
