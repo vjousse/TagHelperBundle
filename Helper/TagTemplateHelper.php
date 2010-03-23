@@ -125,14 +125,6 @@ class TagTemplateHelper implements HelperInterface
     }
 
     $class = isset($tagOpt['class']) ? $tagOpt['class'] : array();
-
-    if(isset($tagOpt['lang']))
-    {
-      if($tagOpt['lang'] === $this->context->getUser()->getCulture())
-      {
-        unset($tagOpt['lang']);
-      }
-    }
     
     if (isset($tagOpt['class']) && is_array($tagOpt['class']))
     {
