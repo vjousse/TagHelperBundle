@@ -134,7 +134,7 @@ class TagTemplateHelper implements HelperInterface
     $optHtml = '';
     foreach ($tagOpt as $key => $val)
     {
-      $optHtml .= ' '.$key.'="'.htmlentities($val, ENT_COMPAT, 'UTF-8').'"';
+      $optHtml .= ' '.$key.'="'.htmlentities($val, ENT_COMPAT, $this->charset).'"';
     }
 
     if(in_array($tagName, $this->options['empty_elements']))
