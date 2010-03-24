@@ -72,17 +72,11 @@ The bledding edge version of Symfony is slightly different from the sandbox one.
 Usage
 -----
 
-In a template file, you'll have to declare that you will 'use' the corresponding class
+In your config.yml file, you'll have to declare that you will 'use' the helper
 
-    [php]
-    use Bundle\TagHelperBundle\Helper\TagTemplateHelper;
+    helper.tag: ~
 
-Then just add the helper to the already existing helpers 
-
-    [php]
-    $view->set(new TagTemplateHelper());
-
-You're done ! You can do something like this:
+You're done ! You can do something like this in a template:
 
     [php]
     echo $view->tag->tag('div#test.toto', 'Foo');

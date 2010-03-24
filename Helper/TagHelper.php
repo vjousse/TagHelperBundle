@@ -4,7 +4,7 @@ namespace Bundle\TagHelperBundle\Helper;
 use Symfony\Components\Templating\Helper\HelperInterface;
 use Bundle\TagHelperBundle\Toolkit\StringToolkit;
 
-class TagTemplateHelper implements HelperInterface
+class TagHelper implements HelperInterface
 {
   protected $charset = 'UTF-8';
   protected $options;
