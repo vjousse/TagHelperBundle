@@ -4,12 +4,12 @@ TagHelperBundle
 Overview
 --------
 
-Just a simple Bundle which allow you to use the Diem tag helper in a Symfony 2 project. See http://diem-project.org/diem-5-0/doc/en/reference-book/template-helpers#tag-helpers:_tag-create-a-tag for more details.
+Just a simple Bundle which allow you to use the Diem tag helper in a Symfony2 project. See http://diem-project.org/diem-5-0/doc/en/reference-book/template-helpers#tag-helpers:_tag-create-a-tag for more details.
 
 Basically this code :
 
     [php]
-    echo $view->tag->tag('div#test.toto', 'Foo');
+    echo $view['tag']->tag('div#test.toto', 'Foo');
 
 Will output : 
 
@@ -18,23 +18,11 @@ Will output :
 Requirements
 ------------
 
-You will need the latest version of Symfony 2 (not the sandbox PR1 one). You can get it from github here: http://github.com/symfony/symfony
+You will need the PR3 version of Symfony2. You can get the sandbox from github here: http://github.com/symfony/symfony-sandbox/tree/PR3
 
 Installation
 ------------
 
-The bledding edge version of Symfony is slightly different from the sandbox one.
-
-
-  * If you're using the sandbox, go into your src/vendor directory and remove the existing symfony dir. Then
-  
-      $ git clone git://github.com/symfony/symfony.git
-
-  * You will have to modify you config_dev.yml and delete the web.debug section. Replace it with
-
-        [yml]
-        profiler.config:
-          toolbar: true
           
   * Install the bundle in src/Bundle
       $ cd src/Bundle
@@ -45,27 +33,24 @@ The bledding edge version of Symfony is slightly different from the sandbox one.
         [php]    
         public function registerBundles()
         {
+            $bundles = array(
+                new Symfony\Framework\KernelBundle(),
+                new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+                new Symfony\Bundle\ZendBundle\ZendBundle(),
+                new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+                new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
+                //new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
+                //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
+                //new Symfony\Bundle\PropelBundle\PropelBundle(),
+                //new Symfony\Bundle\TwigBundle\TwigBundle(),
+                new Application\HelloBundle\HelloBundle(),
+                new Bundle\TagHelperBundle\TagHelperBundle(),
+            );
 
-          $bundles = array(
-            new Symfony\Foundation\Bundle\KernelBundle(),
-            new Symfony\Framework\WebBundle\Bundle(),
+            if ($this->isDebug()) {
+            }
 
-            // enable third-party bundles
-            new Symfony\Framework\ZendBundle\Bundle(),
-            new Symfony\Framework\DoctrineBundle\Bundle(),
-            new Symfony\Framework\SwiftmailerBundle\Bundle(),
-
-            // register your bundles here
-            new Application\HelloBundle\Bundle(),
-            new Bundle\TagHelperBundle\Bundle(),
-          );
-
-          if ($this->isDebug())
-          {
-            $bundles[] = new Symfony\Framework\ProfilerBundle\Bundle();
-          }
-
-          return $bundles;
+            return $bundles;
         }
     
 
@@ -74,12 +59,12 @@ Usage
 
 In your config.yml file, you'll have to declare that you will 'use' the helper
 
-    helper.tag: ~
+    tag.config: ~
 
 You're done ! You can do something like this in a template:
 
     [php]
-    echo $view->tag->tag('div#test.toto', 'Foo');
+    echo $view['tag']->tag('div#test.toto', 'Foo');
     
 It will output : `<div id="test" class="toto">Foo</div>`
     
@@ -87,9 +72,3 @@ Detailed documentation
 ----------------------
 
 This helper is a port of the Diem tag helper, the documentation can be found here: http://diem-project.org/diem-5-0/doc/en/reference-book/template-helpers#tag-helpers:_tag-create-a-tag
-
-TODO
-----
-
-See how phpUnit works to write some unit tests ;-)
-    
