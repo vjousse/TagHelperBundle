@@ -1,7 +1,7 @@
 <?php
 namespace Bundle\TagHelperBundle\Helper;
 
-use Symfony\Components\Templating\Helper\HelperInterface;
+use Symfony\Component\Templating\Helper\HelperInterface;
 use Bundle\TagHelperBundle\Toolkit\StringToolkit;
 
 class TagHelper implements HelperInterface
