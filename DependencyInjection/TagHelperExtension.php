@@ -2,43 +2,41 @@
 
 namespace Bundle\TagHelperBundle\DependencyInjection;
 
-use Symfony\Components\DependencyInjection\Loader\LoaderExtension;
-use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Components\DependencyInjection\BuilderConfiguration;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * TagHelperExtension manages the template helper.
  */
-class TagHelperExtension extends LoaderExtension
+class TagHelperExtension extends Extension
 {
-  
-  public function tagLoad($config)
-  {
-    $configuration = new BuilderConfiguration();
 
-    $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
-    $configuration->merge($loader->load('tag.xml'));
+    public function configLoad($config, ContainerBuilder $container)
+    {
+        $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
+        $loader->load('config.xml');
 
-    return $configuration;
-  }
+    }
 
-  /**
-   * Returns the base path for the XSD files.
-   *
-   * @return string The XSD base path
-   */
-  public function getXsdValidationBasePath()
-  {
-    return null;
-  }
+    /**
+     * Returns the base path for the XSD files.
+     *
+     * @return string The XSD base path
+     */
+    public function getXsdValidationBasePath()
+    {
+        return null;
+    }
 
-  public function getNamespace()
-  {
-    return 'http://www.symfony-project.org/schema/dic/symfony';
-  }
+    public function getNamespace()
+    {
+        return 'http://www.symfony-project.org/schema/dic/symfony';
+    }
 
-  public function getAlias()
-  {
-    return 'helper';
-  }
+    public function getAlias()
+    {
+        return 'tag';
+    }
+
 }
