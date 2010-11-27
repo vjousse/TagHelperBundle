@@ -2,7 +2,7 @@
 
 namespace Bundle\TagHelperBundle;
 
-use Symfony\Framework\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class TagHelperBundle extends Bundle
 {
